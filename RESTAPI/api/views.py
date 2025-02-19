@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from .models import BlogPost
 from .serializers import BlogPostSerializers
 from rest_framework.views import APIView
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
@@ -30,4 +31,11 @@ class BlogPostList(APIView):
             blog_posts = BlogPost.objects.all()
 
         serializer = BlogPostSerializers(blog_posts, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class BlogPostListOne(APIView):
+    def get(self, request, pk, format=None):
+        blog_post = get_object_or_404(BlogPost, pk=pk) 
+
+        serializer = BlogPostSerializers(blog_post)
         return Response(serializer.data, status=status.HTTP_200_OK)
