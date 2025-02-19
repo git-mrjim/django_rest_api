@@ -7,4 +7,5 @@ urlpatterns = [
         'blogposts/<int:pk>/', views.BlogPostRetrieveUpdateDestroy.as_view(),
          name='update',
     ),
+    path('blogposts/all/', views.BlogPostList.as_view(), name="blogpost-view-all")
 ]
